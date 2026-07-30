@@ -1,0 +1,38 @@
+[plugin]
+slug        = "open-shop-channel"
+name        = "Open Shop Channel (Wii)"
+version     = "0.1.0"
+rpp_version = "1"
+license     = "MIT"
+
+[capabilities]
+search   = "open_shop_channel.search:Search"
+importer = "open_shop_channel.importer:Importer"
+
+# One host does both jobs, and it is deliberately NOT `api.oscwii.org`.
+#
+#   hbb1.oscwii.org
+#       `/api/v3/contents` serves the catalogue as JSON, and
+#       `/api/contents/<slug>/<slug>.zip` serves the packages. Verified
+#       2026-07-30: every one of the 293 packages carries both its `zip`
+#       and its `icon` URL on this host and no other, so there is no
+#       second host to declare and no redirect off it.
+#
+# `api.oscwii.org` is absent on purpose, and it is the reason this
+# plugin's parser does not trust a status code. That host answers **HTTP
+# 200 with `text/html` and a fixed 380,975 bytes for every path**,
+# including paths it never served: `/v4/contents` returns byte-for-byte
+# what `/api/v3/contents` does. It is a documentation site. A plugin
+# pointed at it would get 200 and an HTML page forever.
+#
+# Since it is not in this list, the broker would refuse the request even
+# if a future version tried it. See `open_shop_channel/api.py`.
+[permissions]
+network  = ["hbb1.oscwii.org"]
+romm_api = []
+
+[config]
+# Collection to file imports under. Empty means no collection, which is
+# the right answer on a backend that has none -- the import still
+# completes and the skip is reported.
+collection = { type = "str", default = "Open Shop Channel" }

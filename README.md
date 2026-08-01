@@ -1,5 +1,7 @@
 # Open Shop Channel plugin for ROM Hub
 
+> Part of **[Cartridge](https://github.com/BlizzHacker/rom-hub/blob/master/BRAND.md)** by MoveWeight — a **[ROMarr](https://github.com/BlizzHacker/romarr)** / ROM Hub plugin. Unofficial; not affiliated with RomM, Gaseous or Retrom.
+
 Implements the RPP v1 `search` and `importer` capabilities against the
 [Open Shop Channel](https://oscwii.org/) — the Wii homebrew repository the
 Homebrew Browser and OSC-DL read.
